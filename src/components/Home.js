@@ -16,20 +16,33 @@ const Home = React.createClass({
       restaurant: {},
       addShow: false,
       sortName: true,
-      sortPrice: true
+      sortPrice: true,
+      totalPrice: 0,
+      totalItems: 0
     }
   },
+  totalPrice(){
+    let price = this.state.productlist.reduce((item,next)=>{
+      return item.price + next.price
+    },0)
+    this.setState({totalPrice: price});
+  },
   updateItem(newItem){
-
    this.setState({menu: newMenu})
+   this.setState({totalItems: this.state.productlist.length})
+   this.totalPrice();
   },
   deleteItem(id) {
     this.setState({productlist: this.state.productlist.filter(item => {if(item.id !== id){return item}})});
+    this.setState({totalItems: this.state.productlist.length})
+    this.totalPrice();
   },
   onAdd(item){
     item.id = uuid();
     this.setState({addShow: false})
     this.setState({productlist: this.state.productlist.concat(item)})
+    this.setState({totalItems: this.state.productlist.length})
+    this.totalPrice();
   },
   closeAddModal(){
     this.setState({addShow: false})
@@ -39,35 +52,22 @@ const Home = React.createClass({
   },
   sortName(){
     //sort the array according to name
-    let sortArr = function(){
-      if(sortName){
-        this.state.productlist.sort((a,b) =>{
+      if(this.state.sortName){
+        let sortArr = this.state.productlist.sort((a,b) =>{
           return a.name - b.name;
+          this.setState({sortName: false})
+          console.log("sortArr:", sortArr)
         });
       }else{
-        this.state.productlist.sort((a,b) =>{
+        let sortArr = this.state.productlist.sort((a,b) =>{
           return b.name - a.name;
         });
       }
-    }
-    this.setState({productlist: sortArr})
-    this.setState({sortName: false})
+
+    // this.setState({productlist: sortArr})
   },
   sortPrice(){
-    //sort the array according to price
-    let sortArr = function(){
-      if(sortPrice){
-        this.state.productlist.sort((a,b) =>{
-          return a.price - b.price;
-        });
-      }else{
-        this.state.productlist.sort((a,b) =>{
-          return b.price - a.price;
-        });
-      }
-    }
-    this.setState({productlist: sortArr})
-    this.setState({sortPrice: false})
+  
   },
   componentDidUpdate(){
   localStorage.productlist = JSON.stringify(this.state.productlist);

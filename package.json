@@ -2,10 +2,8 @@
   "name": "menu-builder",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "serve": "webpack-dev-server --port 3000 --inline --hot --content-base public/ --history-api-fallback",
-    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --watch --inline --hot"
   },
@@ -27,7 +25,6 @@
     "react-dom": "^15.3.0",
     "react-router": "^2.6.1",
     "uuid": "^2.0.2",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^1.13.1"
   }
 }
