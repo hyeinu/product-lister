@@ -35,8 +35,6 @@ const Home = React.createClass({
        return newItem;
      }
    })
-   console.log(newProductList)
-   
    this.setState({productlist: newProductList})
    this.setState({totalItems: this.state.productlist.length})
    this.totalPrice();
