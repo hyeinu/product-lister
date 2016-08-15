@@ -5,7 +5,7 @@ const AddModal = React.createClass({
   getInitialState(){
     return{
      name: "",
-     price: "",
+     price: 0,
      picUrl: "",
     }
   },
@@ -22,7 +22,7 @@ const AddModal = React.createClass({
     this.setState({picUrl: e.target.value})
   },
   submit(){
-    this.setState({name: '', price: '', picUrl: ''})
+    this.setState({name: '', price: 0, picUrl: ''})
     this.props.submit(this.state);
   },
   render() {
@@ -36,7 +36,7 @@ const AddModal = React.createClass({
          <FormGroup>
         <Modal.Body>
           <FormControl type="text" placeholder="Name" value={this.state.name} onChange={this.changeName}/>
-          <FormControl type="text" placeholder="Price" value={this.state.price} onChange={this.changePrice}/>
+          <FormControl type="number" placeholder="Price" value={this.state.price} onChange={this.changePrice}/>
           <FormControl type="text" placeholder="Picture Url" value={this.state.picUrl} onChange={this.changePicUrl}/>
           <Image src={this.state.picUrl} rounded responsive />
         </Modal.Body>

@@ -8,21 +8,16 @@ const Home = React.createClass({
   getInitialState(){
     try{
         var items = JSON.parse(localStorage.productlist)
-        let totalPrice = items.reduce((item, next) =>{
-          console.log("item.price:", item.price)
-          return parseInt(item.price) + parseInt(next.price);
-        }, 0)
       } catch(err){
         var items = [];
       }
-
     return{
       productlist: items,
       restaurant: {},
       addShow: false,
       sortName: true,
       sortPrice: true,
-      totalPrice: totalPrice,
+      totalPrice: 0,
       totalItems: items.length
     }
   },
@@ -33,7 +28,16 @@ const Home = React.createClass({
     this.setState({totalPrice: price});
   },
   updateItem(newItem){
-   this.setState({menu: newMenu})
+   let newProductList = this.state.productlist.filter(item => {
+     if (item.id !== newItem.id){
+       return item;
+     } else {
+       return newItem;
+     }
+   })
+   console.log(newProductList)
+   
+   this.setState({productlist: newProductList})
    this.setState({totalItems: this.state.productlist.length})
    this.totalPrice();
   },
