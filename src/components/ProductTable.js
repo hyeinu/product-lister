@@ -5,7 +5,7 @@ import EditModal from './EditModal'
 const ProductTable = React.createClass({
   getInitialState(){
     return {
-      menu: this.props.menu,
+      list: this.props.productlist,
       showEditModal: false,
       editProduct: {}
     }
@@ -38,7 +38,7 @@ const ProductTable = React.createClass({
     )
     return (
      <div>
-      <Table className="container" hover={true}>
+      <Table className="container">
         <thead>
           <tr>
             <th className="col-xs-2">Name <Button className="fa fa-sort" onClick={this.props.sortName}></Button></th>

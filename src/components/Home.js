@@ -6,10 +6,17 @@ import ProductTable from './ProductTable'
 
 const Home = React.createClass({
   getInitialState(){
+    try{
+        var items = JSON.parse(localStorage.productlist)
+      } catch(err){
+        var items = [];
+      }
     return{
-      productlist: [],
+      productlist: items,
       restaurant: {},
-      addShow: false
+      addShow: false,
+      sortName: true,
+      sortPrice: true
     }
   },
   updateItem(newItem){
@@ -17,7 +24,7 @@ const Home = React.createClass({
    this.setState({menu: newMenu})
   },
   deleteItem(id) {
-
+    this.setState({productlist: this.state.productlist.filter(item => {if(item.id !== id){return item}})});
   },
   onAdd(item){
     item.id = uuid();
@@ -32,14 +39,25 @@ const Home = React.createClass({
   },
   sortName(){
     //sort the array according to name
+    let sortArr = function(){
+      if(sortName){
+        this.state.productlist.sort((a,b) =>{
+          return a.name - b.name;
+        });
+      }else{
+        this.state.productlist.sort((a,b) =>{
+          return b.name - a.name;
+        });
+      }
+    }
+    this.setState({productlist: sortArr})
+    this.setState(sortName: false)
   },
   sortPrice(){
     //sort the array according to price
   },
   componentDidUpdate(){
   localStorage.productlist = JSON.stringify(this.state.productlist);
-  // let newproductlist = JSON.parse(localStorage.productlist)
-  // this.setState({productlist: newproductlist})
   },
   render() {
     let smClose = () => this.setState({ addShow: false });
