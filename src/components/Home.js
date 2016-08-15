@@ -18,6 +18,9 @@ const Home = React.createClass({
 
    this.setState({menu: newMenu})
   },
+  addNew(item) {
+
+  },
   deleteItem(id) {
 
   },
@@ -37,13 +40,11 @@ const Home = React.createClass({
   },
   render() {
     let smClose = () => this.setState({ addShow: false });
-    if (this.state.restaurant.id){
-    let resName = this.state.restaurant.name.toUpperCase();
       return (
         <div>
         <div className="row">
           <div className="col-xs-8">
-          <h2>Add More Products</h2>
+          <h2>Add New Product</h2>
           </div>
           <div className="col-xs-4">
           <br />
@@ -54,9 +55,6 @@ const Home = React.createClass({
         <AddModal show={this.state.addShow} submit={this.onSubmit} onHide={this.close} add={this.state.addNew}/>
         </div>
         )
-    }
-    else
-      return <h1>Loading...</h1>
   }
 })
 
