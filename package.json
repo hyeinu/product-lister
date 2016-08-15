@@ -2,7 +2,7 @@
   "name": "menu-builder",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "serve": "webpack-dev-server --port 3000 --inline --hot --content-base public/ --history-api-fallback",
     "start": "node app.js",

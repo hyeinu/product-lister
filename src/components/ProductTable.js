@@ -20,9 +20,6 @@ const ProductTable = React.createClass({
   close() {
     this.setState({showEditModal: false})
   },
-  // submit(newItem) {
-  // this.props.update(newItem)
-  // },
   render(){
     // let smClose = () => this.setState({ showEditModal: false });
     let productItems = this.props.productlist.map(item =>

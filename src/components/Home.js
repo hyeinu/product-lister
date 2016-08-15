@@ -29,7 +29,7 @@ const Home = React.createClass({
   onAdd(item){
     item.id = uuid();
     this.setState({addShow: false})
-    this.setState({this.state.productlist.concat(item)})
+    this.setState({productlist: this.state.productlist.concat(item)})
   },
   closeAddModal(){
     this.setState({addShow: false})
@@ -51,10 +51,23 @@ const Home = React.createClass({
       }
     }
     this.setState({productlist: sortArr})
-    this.setState(sortName: false)
+    this.setState({sortName: false})
   },
   sortPrice(){
     //sort the array according to price
+    let sortArr = function(){
+      if(sortPrice){
+        this.state.productlist.sort((a,b) =>{
+          return a.price - b.price;
+        });
+      }else{
+        this.state.productlist.sort((a,b) =>{
+          return b.price - a.price;
+        });
+      }
+    }
+    this.setState({productlist: sortArr})
+    this.setState({sortPrice: false})
   },
   componentDidUpdate(){
   localStorage.productlist = JSON.stringify(this.state.productlist);
