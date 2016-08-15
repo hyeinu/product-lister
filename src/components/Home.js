@@ -1,14 +1,12 @@
 import React from 'react'
+import uuid from 'uuid'
 import {Image, Table, Modal, Button, FormGroup, FormControl} from 'react-bootstrap'
 import AddModal from './AddModal'
-import EditModal from './EditModal'
 import ProductTable from './ProductTable'
 
-//destructuring in the home
 const Home = React.createClass({
   getInitialState(){
     return{
-      menu: [],
       productlist: [],
       restaurant: {},
       addShow: false
@@ -18,25 +16,30 @@ const Home = React.createClass({
 
    this.setState({menu: newMenu})
   },
-  addNew(item) {
-
-  },
   deleteItem(id) {
 
   },
-  onSubmit(item){
+  onAdd(item){
+    item.id = uuid();
     this.setState({addShow: false})
+    this.setState({this.state.productlist.concat(item)})
   },
-  close(){
+  closeAddModal(){
     this.setState({addShow: false})
   },
   openAddModal(item){
     this.setState({addShow: true })
   },
+  sortName(){
+    //sort the array according to name
+  },
+  sortPrice(){
+    //sort the array according to price
+  },
   componentDidUpdate(){
   localStorage.productlist = JSON.stringify(this.state.productlist);
-  let newproductlist = JSON.parse(localStorage.productlist)
-  this.setState({productlist: newproductlist})
+  // let newproductlist = JSON.parse(localStorage.productlist)
+  // this.setState({productlist: newproductlist})
   },
   render() {
     let smClose = () => this.setState({ addShow: false });
@@ -51,8 +54,8 @@ const Home = React.createClass({
           <Button onClick={this.openAddModal} className="btn-success fa fa-plus-square fa-sm"></Button>
           </div>
         </div>
-        <ProductTable menu={this.state.menu} update={this.updateItem} delete={this.deleteItem}/>
-        <AddModal show={this.state.addShow} submit={this.onSubmit} onHide={this.close} add={this.state.addNew}/>
+        <ProductTable productlist={this.state.productlist} update={this.updateItem} delete={this.deleteItem} sortName={this.sortName} sortPrice={this.sortPrice}/>
+        <AddModal show={this.state.addShow} submit={this.onAdd} onHide={this.closeAddModal}/>
         </div>
         )
   }

@@ -20,27 +20,9 @@ const ProductTable = React.createClass({
   close() {
     this.setState({showEditModal: false})
   },
-  submit(newItem) {
-    this.setState({showEditModal: false})
-    let url = `/api/menu/${newItem.id}`;
-
-    fetch(url, {
-      method: 'PUT',
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newItem)
-    })
-    .then(Response =>{
-      return Response.json()
-    })
-    .then(data =>{
-      this.props.update(data)
-    })
-    .catch(err => {
-      console.log('err:', err)
-    })
-  },
+  // submit(newItem) {
+  // this.props.update(newItem)
+  // },
   render(){
     // let smClose = () => this.setState({ showEditModal: false });
     let productItems = this.props.productlist.map(item =>
@@ -54,14 +36,13 @@ const ProductTable = React.createClass({
         </tr>
       )
     )
-
     return (
      <div>
       <Table className="container" hover={true}>
         <thead>
           <tr>
-            <th className="col-xs-2">Name</th>
-            <th className="col-xs-1">Price $</th>
+            <th className="col-xs-2">Name <Button className="fa fa-sort" onClick={this.props.sortName}></Button></th>
+            <th className="col-xs-1">Price <Button className="fa fa-sort" onClick={this.props.sortPrice}></Button></th>
             <th className="col-xs-2">Picture</th>
             <th className="col-xs-1">Edit</th>
             <th className="col-xs-1">Delete</th>
@@ -71,7 +52,7 @@ const ProductTable = React.createClass({
            {productItems}
         </tbody>
       </Table>
-              <EditModal show={this.state.showEditModal} onSubmit={this.submit} onHide={this.close} menu={this.state.editMenu}/>
+      <EditModal show={this.state.showEditModal} onSubmit={this.props.update} onHide={this.close} item={this.state.editProduct}/>
      </div>
     )
   }
